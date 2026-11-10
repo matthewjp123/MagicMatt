@@ -81,6 +81,7 @@
   /* NAV */
   .nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
   .nav.scrolled{background:rgba(7,9,13,.85);backdrop-filter:blur(14px);border-color:var(--line)}
+  .nav .wrap,.hero-main .wrap{max-width:none;padding-left:clamp(20px,4.5vw,72px);padding-right:clamp(20px,4.5vw,72px)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px}
   .logo{display:block}
   .logo img{height:38px;width:auto}
@@ -92,11 +93,12 @@
   .burger svg{width:28px;height:28px}
 
   /* HERO */
-  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;overflow:hidden}
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;padding:0}
+  .hero-main{position:relative;flex:1;display:flex;align-items:center;padding:100px 0 40px}
   .hero-video{position:absolute;top:0;bottom:0;right:0;left:48%;z-index:0;pointer-events:none;overflow:hidden}
   .hero-video iframe{position:absolute;top:50%;left:50%;width:max(100%,177.78vh);height:max(100%,56.25vw);aspect-ratio:16/9;transform:translate(-50%,-50%);border:0}
-  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 48%,rgba(4,6,15,.85) 60%,rgba(4,6,15,.45) 76%,rgba(4,6,15,.3) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 18%)}
-  .hero .wrap{position:relative;z-index:2}
+  .hero-main::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 48%,rgba(4,6,15,.85) 60%,rgba(4,6,15,.45) 76%,rgba(4,6,15,.3) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 18%)}
+  .hero-main .wrap{position:relative;z-index:2}
   .hero-copy{max-width:min(740px,58%)}
   .hero .btns{flex-wrap:nowrap}
   .hero .btn{white-space:nowrap}
@@ -113,10 +115,11 @@
   .proof b{font-family:var(--display);font-weight:500;font-size:1.35rem;display:block;line-height:1.2}
 
   /* LOGOS */
-  .logos{padding:56px 0 64px;background:#fff}
-  .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);margin-top:28px}
+  .logos{position:relative;z-index:3;padding:22px 0 26px;background:#fff}
+  .logos .tag{margin-bottom:0;font-size:.75rem}
+  .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);margin-top:16px}
   .track{display:flex;gap:90px;width:max-content;animation:scroll 40s linear infinite;align-items:center}
-  .track img{height:64px;width:auto;max-width:190px;object-fit:contain;transition:transform .3s}
+  .track img{height:clamp(34px,5vh,50px);width:auto;max-width:160px;object-fit:contain;transition:transform .3s}
   .track img:hover{transform:scale(1.06)}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
@@ -249,6 +252,63 @@
   .socials svg{width:18px;height:18px}
   .legal{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--muted)}
 
+
+  /* CAROUSELS */
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px}
+  .car-nav{display:flex;gap:10px;flex-shrink:0}
+  .car-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:#fff;display:grid;place-items:center;cursor:pointer;transition:.2s}
+  .car-btn:hover{border-color:var(--accent);background:rgba(58,130,208,.15)}
+  .car-btn svg{width:16px;height:16px}
+  .carousel{overflow:hidden}
+  .car-track{display:flex;gap:22px;overflow-x:auto;--edge:max(20px,calc((100vw - var(--max))/2 + 24px));scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px var(--edge) 10px;scroll-padding-inline:var(--edge);scrollbar-width:none}
+  .car-track::-webkit-scrollbar{display:none}
+  .car-track>*{scroll-snap-align:start;flex:0 0 auto}
+  .car-track .quote{width:min(380px,82vw)}
+  .car-track .tv-card{width:min(460px,86vw)}
+  .gal img{width:min(460px,82vw);aspect-ratio:16/9;object-fit:cover;border-radius:14px}
+  .lite{background:#000 center/cover no-repeat;cursor:pointer}
+  .lite[data-vimeo=""]{background:linear-gradient(135deg,#0e1a33,#1b2b4f);cursor:default}
+  .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:rgba(4,6,15,.25);transition:background .2s}
+  .play svg{width:64px;height:64px;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
+  .lite:hover .play,.tk:hover .play{background:rgba(4,6,15,.05)}
+  .convos,.photos{background:var(--bg-2)}
+  /* WATCH */
+  .watch .glow{max-width:960px;margin:40px auto 40px;border-radius:20px;padding:3px;background:linear-gradient(135deg,var(--accent),#6a5cff,var(--accent));box-shadow:0 0 70px var(--glow)}
+  .watch .glow .video{border-radius:17px;overflow:hidden}
+  /* SOCIAL */
+  .tk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+  .tk{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:9/16;background:var(--card)}
+  .tk img{width:100%;height:100%;object-fit:cover}
+  .tk-stat{margin-top:34px;text-align:center;color:var(--muted)}
+  .tk-stat strong{color:#fff}
+  /* STAT BAR */
+  .statbar-sec{padding:70px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .statbar div{padding-left:18px;border-left:2px solid var(--accent)}
+  .statbar b{display:block;font-weight:600}
+  .statbar p{color:var(--muted);font-size:.92rem;margin-top:4px}
+  /* RESOURCES DROPDOWN */
+  .drop{position:relative}
+  .drop>button{background:none;border:0;color:#d7dce5;cursor:pointer;display:flex;align-items:center;padding:4px}
+  .drop>button svg{width:20px;height:20px}
+  .drop-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:190px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .drop.open .drop-menu{display:flex}
+  .drop-menu a{padding:10px 14px;border-radius:8px;text-transform:none;letter-spacing:0;font-size:.92rem}
+  .drop-menu a:hover{background:rgba(58,130,208,.15)}
+  .foot-legal{display:flex;gap:18px;flex-wrap:wrap}
+  .foot-legal a:hover{color:#fff}
+  @media (max-width:991px){
+    .tk-grid{grid-template-columns:repeat(3,1fr)}
+    .statbar{grid-template-columns:repeat(2,1fr)}
+    .drop-menu{position:static;display:flex;background:none;border:0;box-shadow:none;padding:0 0 0 12px}
+    .drop>button{display:none}
+  }
+  @media (max-width:560px){
+    .tk-grid{grid-template-columns:repeat(2,1fr)}
+    .statbar{grid-template-columns:1fr}
+    .sec-head .car-nav{display:none}
+  }
+
   /* REVEAL */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
@@ -260,7 +320,7 @@
     .hero-video{left:0}
     .hero-copy{max-width:640px}
     .hero .btns{flex-wrap:wrap}
-    .hero::after{background:linear-gradient(90deg,rgba(4,6,15,.92) 0%,rgba(4,6,15,.8) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 25%)}
+    .hero-main::after{background:linear-gradient(90deg,rgba(4,6,15,.92) 0%,rgba(4,6,15,.8) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 25%)}
     .nav ul{position:fixed;top:78px;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,9,13,.97);padding:10px 24px 24px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .35s;z-index:-1}
     .nav ul.open{transform:none}
     .nav ul li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -276,7 +336,7 @@
   }
   @media (max-width:560px){
     .wrap{padding:0 16px}
-    .hero{padding:120px 0 70px}
+    .hero-main{padding:100px 0 40px}
     .stats{grid-template-columns:1fr}
     .row,.radios{grid-template-columns:1fr}
     form{padding:24px}
@@ -295,8 +355,17 @@
       <li><a href="#services">Events</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#convos">Client Convos</a></li>
       <li><a href="#tv">As Seen On</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li class="drop" id="drop"><button aria-label="Downloads" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg></button>
+        <div class="drop-menu">
+          <a href="https://drive.google.com/file/d/192aNgVe_4iMuqeb3t5CS0CDjmti_3lo0/view?usp=sharing" target="_blank" rel="noopener">Intro Script</a>
+          <a href="https://drive.google.com/file/d/1CK22oaNb6Mrw5KWhhK0nclMEknNMuvIP/view?usp=sharing" target="_blank" rel="noopener">Media Kit</a>
+          <a href="https://vimeo.com/1013856598" target="_blank" rel="noopener">Intro Video</a>
+          <a href="https://drive.google.com/file/d/1upB2izm6p9gA-tXlt890Vn1xSgJhbVta/view?usp=sharing" target="_blank" rel="noopener">Tech Rider</a>
+        </div>
+      </li>
     </ul>
     <a href="#contact" class="btn ghost">Inquire Now</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
@@ -307,6 +376,7 @@
 
 <!-- HERO -->
 <header class="hero" id="top">
+  <div class="hero-main">
   <div class="hero-video">
     <iframe src="https://player.vimeo.com/video/1013856598?background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&dnt=1" allow="autoplay; fullscreen" title="Matt James showreel" tabindex="-1"></iframe>
   </div>
@@ -330,9 +400,8 @@
       </div>
     </div>
   </div>
-</header>
-
-<!-- LOGOS -->
+  </div>
+  <!-- LOGOS -->
 <div class="logos">
   <div class="wrap center"><div class="tag">Trusted by Top Brands</div></div>
   <div class="marquee">
@@ -355,6 +424,24 @@
     </div>
   </div>
 </div>
+</header>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><div class="tag">Testimonials</div><h2>Standing Ovations, <em>Every Room.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div>
+  </div>
+  <div class="carousel"><div class="car-track"><div class="quote"><div class="stars">★★★★★</div><p>Matt did an exceptional job tailoring the act for the Home Depot audience, making it feel personal and relevant throughout. <br>He delivered incredible energy and the audience remained captivated throughout. Would definitely recommend Matt for any corporate event, to leave a lasting impression!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0f5283418f1e571ae86eab_Cropped%20Testimonial%20Photos%20%2812%29.webp" alt=""><div><b>Elisa Nikolovski</b><small>Home Depot</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Matt, what made your act so special, was how authentically &#x27;you&#x27; and raw it was. <br>It was your personality and energy that made it feel completely unique!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a054c632603b7d0d9503436_Cropped%20Testimonial%20Photos%20%285%29.webp" alt=""><div><b>Howie Mandel</b><small>AGT Judge &amp; TV Host</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Matt’s entire show was captivating and mind blowing. <br>The energy, engagement, crowd working and effects are all top notch!<br>High end entertainment that will boggle your mind :)</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a054fe1c6f1140ad15f9d18_Cropped%20Testimonial%20Photos%20%286%29.webp" alt=""><div><b>Maryam Q</b><small>Google</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>What an absolute rockstar of a performance! <br>Matt is an amazing talent with a world of charm and can have the room smiling in minutes.  <br>Highly recommended if you want to have a WOW factor at your next corporate event!!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a05597c27b88ee2ed308ea6_Cropped%20Testimonial%20Photos%20%2811%29.webp" alt=""><div><b>Anmol Datta</b><small>Marriott Hotels</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>During our holiday party cocktail hour, Matt mingled effortlessly with guests and left them in awe! <br>Later, Matt put on a stage show and his charisma &amp; mind-blowing effects kept everyone on the edge of their seats!<br>Truly unforgettable!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a055619443a5a3e452a5c5d_Cropped%20Testimonial%20Photos%20%2810%29.webp" alt=""><div><b>Laura Centofanti</b><small>Financial Sector</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>What sets Matt apart is not just his incredible talent, but also his ability to connect with the audience. He had a unique way of making everyone feel like a part of the magic, creating an experience that will be remembered long after the Gala. <br>Highly recommend Matt for going way beyond expectations!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a05514c24beaac6fce52a93_Cropped%20Testimonial%20Photos%20%287%29.webp" alt=""><div><b>Emily Tingey</b><small>YMCA</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Whattttt!!! That was really really good <br>Matt, that was really impressive man, honetly, keep it up!<br>Canada&#x27;s finest everyone, Magic Matt!<br>- Access Hollywood, NBC</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0553d06de226a97e60aa08_Cropped%20Testimonial%20Photos%20%289%29.webp" alt=""><div><b>Mario Lopez</b><small>Emmy Winning TV Host</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>When MagicMatt took the stage at my nephew’s wedding reception, on June 8, at The Old Mill, he instantly captivated everyone in the room, including the staff! <br>His interactive style had us all on the edge of our seats, wondering how he performed his mind-bending tricks right before our eyes.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c611_vishjoshi.avif" alt=""><div><b>Vish Joshi</b><small>Event Planner</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Matt was awesome at our corporate holiday party! He did an amazing job and definitely left some of us STUNNED. <br>He really got the crowd involved, making the whole experience so much fun. <br>Matt was also very responsive from the start, which made the planning process a breeze.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a05523398a1ffb2f0282a16_Cropped%20Testimonial%20Photos%20%288%29.webp" alt=""><div><b>Abigail Ruth</b><small>Electrical Industry</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>From the moment guests arrived, he had everyone mesmerized. <br>During the cocktail hour, his roaming magic left people in awe, laughter and astonishment could be heard all around the room! <br>Later, his on-stage performance captivated the entire audience.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c613_jackiefox.avif" alt=""><div><b>Jackie Fox</b><small>Health sector</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Magic Matt was unbelievable! His show had the perfect mix of jaw-dropping magic and mind-reading that left everyone stunned. <br>He has an amazing presence, funny, engaging, and completely captivating from start to finish.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c612_debramanni.avif" alt=""><div><b>Debra Maini</b><small>Healthcare industry</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Oh wow, that was incredible, Matt, seriously!! <br>smiling and laughing<br>I’m gonna follow you man, you deserve it. Keep it up!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0549f87a4d1503aa46cc26_Cropped%20Testimonial%20Photos%20%281%29.webp" alt=""><div><b>Shin Lim</b><small>x2 AGT winner</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Matt is one of a kind. His stage show was epic and great for all ages for an event we did at Blue Mountain. <br>Couldn&#x27;t recommend him and his magic show enough....great guy, great show, great.magic.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5ef_testimonial-3.webp" alt=""><div><b>Scott Benzie</b><small>Film &amp; Media Industry</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>I met Matt while photographing a private event about a month and a half ago, and he was an absolute standout. <br>I was so impressed by how effortlessly he engaged with all the guests, his timing, presence, and professionalism were next-level!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c615_corbinmasters.avif" alt=""><div><b>Corbin Masters</b><small>Happy Client</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>I genuinely don&#x27;t know how he does it! Matt is an absolute joy to watch and so incredibly talented!<br>I was smiling ear to ear as I watched his show! 10 out of 10, highly recommend!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c618_katiedawson.avif" alt=""><div><b>Katie Dawson</b><small>Film &amp; Media Industry</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>This mentalist was the highlight of our Christmas party! From the moment he arrived, he had everyone captivated with his incredible tricks and charming personality. <br>He kept the adults entertained the entire time, and his festive magic was the perfect touch for the occasion.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c617_danamahit.avif" alt=""><div><b>Dana Mihut</b><small>Happy Client</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>Matt did a great job at our event! <br>He wandered through our reception doing magic for small groups and after dinner did a show for the whole group to enjoy. <br>We were amazed and entertained! Thank you Matt!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5f1_testimonial-2.webp" alt=""><div><b>Dawn Stewart</b><small>Dairy Industry</small></div></div></div><div class="quote"><div class="stars">★★★★★</div><p>One of the craziest and most mind bending magic tricks that I’ve ever witnessed. <br>Holy cow, I’m still in shock 😆 I have no idea how Matt pulled this off but his showmanship and execution are absolutely next level.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c619_andyjiang.webp" alt=""><div><b>Andy Jiang</b><small>Media Industry</small></div></div></div></div></div>
+</section>
+
+<!-- WATCH MATT IN ACTION -->
+<section class="watch">
+  <div class="wrap center">
+    <div class="reveal"><div class="tag">Showreel</div><h2>Watch Matt <em>in Action</em></h2></div>
+    <div class="glow reveal"><div class="video"><iframe loading="lazy" src="https://player.vimeo.com/video/1013856598?dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Watch Matt in Action"></iframe></div></div>
+    <a href="#contact" class="btn reveal">Make My Event Unforgettable <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.9 7h8.2M7 2.9 11.1 7 7 11.1"/></svg></a>
+  </div>
+</section>
 
 <!-- STATS -->
 <section>
@@ -368,22 +455,10 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" style="padding-top:0">
-  <div class="wrap">
-    <div class="center reveal">
-      <div class="tag">What People Say</div>
-      <h2>Standing Ovations, <em>Every Room.</em></h2>
-    </div>
-    <div class="grid3">
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>Matt did an exceptional job tailoring the act for the Home Depot audience, making it feel personal and relevant throughout. He delivered incredible energy and the audience remained captivated.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0f5283418f1e571ae86eab_Cropped%20Testimonial%20Photos%20(12).webp" alt=""><div><b>Elisa Nikolovski</b><small>The Home Depot</small></div></div></div>
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>Matt, what made your act so special was how authentically "you" and raw it was. It was your personality and energy that made it feel completely unique!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a054c632603b7d0d9503436_Cropped%20Testimonial%20Photos%20(5).webp" alt=""><div><b>Howie Mandel</b><small>AGT Judge &amp; TV Host</small></div></div></div>
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>Matt's entire show was captivating and mind blowing. The energy, engagement, crowd working and effects are all top notch! High end entertainment that will boggle your mind.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a054fe1c6f1140ad15f9d18_Cropped%20Testimonial%20Photos%20(6).webp" alt=""><div><b>Maryam Q</b><small>Google</small></div></div></div>
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>What an absolute rockstar of a performance! Matt has a world of charm and can have the room smiling in minutes. Highly recommended if you want a WOW factor at your next corporate event.</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a05597c27b88ee2ed308ea6_Cropped%20Testimonial%20Photos%20(11).webp" alt=""><div><b>Anmol Datta</b><small>Marriott Hotels</small></div></div></div>
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>Whattttt!!! That was really, really good. Matt, that was really impressive man. Canada's finest everyone, Magic Matt!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0553d06de226a97e60aa08_Cropped%20Testimonial%20Photos%20(9).webp" alt=""><div><b>Mario Lopez</b><small>Emmy Winning TV Host</small></div></div></div>
-      <div class="quote reveal"><div class="stars">★★★★★</div><p>Oh wow, that was incredible, Matt, seriously! I'm gonna follow you man, you deserve it. Keep it up!</p><div class="who"><img class="avatar" loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0549f87a4d1503aa46cc26_Cropped%20Testimonial%20Photos%20(1).webp" alt=""><div><b>Shin Lim</b><small>Two Time AGT Winner</small></div></div></div>
-    </div>
-  </div>
+<!-- CLIENT CONVOS: paste each client's Vimeo ID into data-vimeo="" -->
+<section class="convos" id="convos">
+  <div class="wrap"><div class="sec-head reveal"><div><div class="tag">Real Clients. Real Conversations</div><h2>Hear It From <em>the Planners.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div></div>
+  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><span class="pill">Marriott Hotels</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">The Home Depot</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Guild Electric, Engineering</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Education Sector</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Google, Tech Sector</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Goldhar, Accounting Firm</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Senior Living</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div></div></div>
 </section>
 
 <!-- SERVICES -->
@@ -457,31 +532,13 @@
         <a href="#contact" class="btn">Make My Event Unforgettable</a>
       </div>
     </div>
-    <div class="gallery">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0fef9aefed3a5ef7e388f8_Cropped%20Site%20Photos.webp" alt="Matt performing at a corporate event">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a41fe298977a0b05d61291e_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20(23).webp" alt="Matt on stage">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff27ed9417e473da7cc7f_Cropped%20Site%20Photos%20(4).webp" alt="Guests reacting to Matt's magic">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff1e217c9c7fd758e19e0_Cropped%20Site%20Photos%20(2).webp" alt="Close up magic at a reception">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff36b7d498369f40c9564_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos.webp" alt="Stage show audience">
-      <img loading="lazy" class="reveal" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff57a6353063bedae2519_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20(9).webp" alt="Matt performing for a large crowd">
-    </div>
   </div>
 </section>
 
-<!-- AS SEEN ON -->
-<section class="tv" id="tv">
-  <div class="wrap">
-    <div class="center reveal">
-      <div class="tag">As Seen On</div>
-      <h2>National TV. <em>Real Reactions.</em></h2>
-    </div>
-    <div class="tv-grid">
-      <div class="tv-card reveal"><div class="tv-head"><b>NBC</b><span class="pill">Access Hollywood</span></div><div class="video"><iframe loading="lazy" src="https://player.vimeo.com/video/1045169376" allow="fullscreen; picture-in-picture" allowfullscreen title="NBC Access Hollywood"></iframe></div><p>"Matt stopped the show on live television."</p></div>
-      <div class="tv-card reveal"><div class="tv-head"><b>CP24</b><span class="pill">News</span></div><div class="video"><iframe loading="lazy" src="https://player.vimeo.com/video/1065225618" allow="fullscreen; picture-in-picture" allowfullscreen title="CP24 News"></iframe></div><p>"Canada's most followed magician goes viral."</p></div>
-      <div class="tv-card reveal"><div class="tv-head"><b>Breakfast TV</b><span class="pill">Toronto</span></div><div class="video"><iframe loading="lazy" src="https://player.vimeo.com/video/1013923187" allow="fullscreen; picture-in-picture" allowfullscreen title="Breakfast Television Toronto"></iframe></div><p>"The whole studio couldn't believe what they just saw."</p></div>
-      <div class="tv-card reveal"><div class="tv-head"><b>CTV</b><span class="pill">Your Morning</span></div><div class="video"><iframe loading="lazy" src="https://player.vimeo.com/video/1197179197" allow="fullscreen; picture-in-picture" allowfullscreen title="CTV Your Morning"></iframe></div><p>"He has amazed audiences all across the country!"</p></div>
-    </div>
-  </div>
+<!-- EVENT PHOTOS -->
+<section class="photos">
+  <div class="wrap"><div class="sec-head reveal"><div><div class="tag">In the Room</div><h2>Real Events. <em>Real Reactions.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div></div>
+  <div class="carousel"><div class="car-track gal"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0fef9aefed3a5ef7e388f8_Cropped%20Site%20Photos.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a41fe298977a0b05d61291e_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2823%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff27ed9417e473da7cc7f_Cropped%20Site%20Photos%20%284%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff1e217c9c7fd758e19e0_Cropped%20Site%20Photos%20%282%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff1f44046973754a202fd_Cropped%20Site%20Photos%20%283%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff1b24046973754a1ec47_Cropped%20Site%20Photos%20%281%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff36b7d498369f40c9564_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a17d0352ba04773f2f3049d_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2822%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff3b8d0be4a9644f6ac2b_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%281%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a6d3e7dba67a12647d3aa27_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%286%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff3f3d286657638274b3d_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%283%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff40c84e73994f46269e5_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%282%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff4238e87170537fc7b5d_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%284%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff537c2f6970fba2f7721_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%285%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff82586851828556af458_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2817%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff5501ce7ab064be30fee_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%287%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff565807812a627f7667d_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%286%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff57a6353063bedae2519_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%289%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff59bd5397278da3d3a76_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2810%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff5afedbe1c6ff55627ea_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2811%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff5cca59aa010443cf7ae_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%288%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff89f2e24e4b0a9d13cc1_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2818%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff5ff6353063bedae4f05_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2812%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a0ff613239e99552b6ef672_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2815%29.webp" alt="Matt performing at a corporate event"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a1cfc18ad2b31e69171419d_Stage%20Corporate%20Magician%20-%20Cropped%20Site%20Photos%20%2823%29.webp" alt="Matt performing at a corporate event"></div></div>
 </section>
 
 <!-- CTA -->
@@ -502,18 +559,12 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section>
+<!-- SOCIAL -->
+<section class="social">
   <div class="wrap">
-    <div class="center reveal">
-      <div class="tag">How It Works</div>
-      <h2>Fill Out a Form. <em>Take All the Credit.</em></h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal"><div class="n">1</div><h3>Fill Out the Form</h3><p>Tell us your event date, type, and goals. Matt reviews your details and responds within 24 hours.</p></div>
-      <div class="step reveal"><div class="n">2</div><h3>Matt Calls You Directly</h3><p>A personal call, not a booking platform. Matt talks through your vision, your team, and what success looks like.</p></div>
-      <div class="step reveal"><div class="n">3</div><h3>Your Guests Are Blown Away</h3><p>Matt handles everything. You sit back, watch the reactions, and take the credit for the best event your team has attended.</p></div>
-    </div>
+    <div class="reveal"><div class="tag">@themagicmatt</div><h2>1 Billion Views. <em>Real Reactions.</em></h2><p class="lead" style="margin-top:14px">Canada's most followed magician. The same performer coming to your event.</p></div>
+    <div class="tk-grid reveal"><a class="tk" href="https://www.tiktok.com/@themagicmatt/video/7596416966311693586?is_from_webapp=1&amp;sender_device=pc&amp;web_id=7627640459367597589" target="_blank" rel="noopener"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5ce_Screenshot%202026-04-11%20160333.avif" alt="Matt James social video"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></a><a class="tk" href="https://www.tiktok.com/@themagicmatt/video/7604945903966801160?_r=1&amp;_t=ZS-95eVCdo4Ont" target="_blank" rel="noopener"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c62d_matt-tiktok-4.avif" alt="Matt James social video"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></a><a class="tk" href="https://www.instagram.com/reel/DL8X5WIRRx1/?igsh=dnlzdjl6anRxbmQ3" target="_blank" rel="noopener"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c62b_matt-tiktok-3.avif" alt="Matt James social video"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></a><a class="tk" href="https://www.instagram.com/p/DYqMncLRtQ-/" target="_blank" rel="noopener"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a1cfafcb3db0157965e3408_Screenshot%202026-05-31%20at%2011.21.32%E2%80%AFPM%20%281%29.webp" alt="Matt James social video"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></a><a class="tk" href="https://www.instagram.com/reel/DHnxD0APbuf/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener"><img loading="lazy" src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c62c_matt-tiktok-2.avif" alt="Matt James social video"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></a></div>
+    <p class="tk-stat reveal"><strong>1,000,000,000+ views across all platforms.</strong> The same reactions waiting for your guests.</p>
   </div>
 </section>
 
@@ -534,6 +585,39 @@
           <details><summary>How far in advance should I book?</summary><p><strong>The sooner the better.</strong> Peak dates like holiday parties, spring galas, and conference season fill months in advance. Submit the form and Matt's team confirms availability within 24 hours.</p></details>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- AS SEEN ON -->
+<section class="tv" id="tv">
+  <div class="wrap"><div class="sec-head reveal"><div><div class="tag">As Seen On</div><h2>National TV. <em>Real Reactions.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div></div>
+  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><b>NBC tv</b><span class="pill">ACCESS Hollywood</span></div><div class="video lite" data-vimeo="1045169376" style="background-image:url('https://i.vimeocdn.com/video/1979434681-7a44c6f0fd00ba34a74b4a8c9d1187e5d4cc42aa16e9cc440e5c7df70c3c08a1-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt stopped the show on live television.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CP24 tv</b><span class="pill">CP24 NEWS</span></div><div class="video lite" data-vimeo="1065225618" style="background-image:url('https://i.vimeocdn.com/video/1992691374-4af7269c5f28f018a1cf7aca1b653dabd51af6d87c6de5e9bc0f16d8dc5b0b2e-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Canada&#x27;s most followed magician goes viral.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>BREAKFAST tv</b><span class="pill">TORONTO</span></div><div class="video lite" data-vimeo="1013923187" style="background-image:url('https://i.vimeocdn.com/video/1990306672-e3c2e1420676844de5e972f26a0a377e1678b8446a6cb06818be7f42078c839f-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;The whole studio couldn&#x27;t believe what they just saw.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CITY TV</b><span class="pill">FEATURE</span></div><div class="video lite" data-vimeo="1063227987" style="background-image:url('https://i.vimeocdn.com/video/1990304207-a4f35c43e0a4fe8a0d991ed9a266f2fb0cbc47e8f8c9dda9ff9c0062af741cf9-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;They came to cover a story. Matt became the story!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CTV TGS</b><span class="pill">National TV</span></div><div class="video lite" data-vimeo="1190315451" style="background-image:url('https://i.vimeocdn.com/video/2155064616-76c36fa1c6cf0981138f76f60d7c4c78b6956fed15403356cf99cf0b2958f804-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt, you&#x27;re a literal wizard, OH MY GOSH!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>Your Morning National</b><span class="pill">CTV</span></div><div class="video lite" data-vimeo="1197179197" style="background-image:url('https://i.vimeocdn.com/video/2163454874-fa05d78e9b4aed7ef6bba7fb06ff7748cb8eb9c2412b730a52cf583df125d825-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He has amazed audiences all across the country!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>National TV</b><span class="pill">CTV Feature</span></div><div class="video lite" data-vimeo="1190315945" style="background-image:url('https://i.vimeocdn.com/video/2155093532-8c4c8751feee7a3706f6e710c0a56f91f7bff804dc459af1d6c8db59379feb32-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He was so incredible, we brought him back AGAIN!&quot;</p></div></div></div>
+</section>
+
+<!-- STAT BAR -->
+<section class="statbar-sec">
+  <div class="wrap">
+    <div class="statbar">
+      <div class="reveal"><b>Named by Google</b><p>Top North American Creator Award</p></div>
+      <div class="reveal"><b>Corporate Events for Top Brands</b><p>Cocktail hours to grand stages</p></div>
+      <div class="reveal"><b>Repeat Clients</b><p>Google, Dove, Marvel &amp; Coca Cola</p></div>
+      <div class="reveal"><b>Satisfaction Guarantee</b><p>100% satisfaction guarantee, always</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="tag">How It Works</div>
+      <h2>Fill Out a Form. <em>Take All the Credit.</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Fill Out the Form</h3><p>Tell us your event date, type, and goals. Matt reviews your details and responds within 24 hours.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Matt Calls You Directly</h3><p>A personal call, not a booking platform. Matt talks through your vision, your team, and what success looks like.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Your Guests Are Blown Away</h3><p>Matt handles everything. You sit back, watch the reactions, and take the credit for the best event your team has attended.</p></div>
     </div>
   </div>
 </section>
@@ -613,12 +697,13 @@
         <li><a href="#about">About Matt</a></li>
         <li><a href="#services">Events</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#convos">Client Convos</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
     <div class="legal">
       <span>© <span id="yr">2026</span> Matt James. All rights reserved.</span>
-      <span>Media Kit · Tech Rider · Intro Script available on request</span>
+      <span class="foot-legal"><a href="https://magicmatt.com/policy-page">Privacy Policy</a><a href="https://magicmatt.com/policy-page">Terms of Service</a><a href="https://magicmatt.com/policy-page">Cookies Policy</a><a href="https://magicmatt.com/blog">Blog</a></span>
     </div>
   </div>
 </footer>
@@ -665,6 +750,25 @@
     });
   }, {threshold:.6});
   document.querySelectorAll('[data-count]').forEach(el => counter.observe(el));
+
+
+  // Carousels
+  document.querySelectorAll('section').forEach(sec => {
+    const track = sec.querySelector('.car-track'); if (!track) return;
+    sec.querySelectorAll('.car-btn').forEach(b => b.addEventListener('click', () => {
+      const card = track.firstElementChild; const step = card ? card.getBoundingClientRect().width + 22 : 400;
+      track.scrollBy({left: step * +b.dataset.dir * (window.innerWidth > 900 ? 2 : 1)});
+    }));
+  });
+  // Click to load videos
+  document.querySelectorAll('.lite').forEach(el => el.addEventListener('click', () => {
+    const id = el.dataset.vimeo; if (!id) return;
+    el.innerHTML = '<iframe src="https://player.vimeo.com/video/' + id + '?autoplay=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+  }, {once:false}));
+  // Downloads dropdown
+  const drop = document.getElementById('drop');
+  drop.querySelector('button').addEventListener('click', ev => { ev.stopPropagation(); drop.classList.toggle('open'); });
+  document.addEventListener('click', () => drop.classList.remove('open'));
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>

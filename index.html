@@ -317,6 +317,29 @@
   .modal-box{width:min(1100px,100%)}
   .modal-box .video{border-radius:14px;overflow:hidden}
   .modal-x{position:absolute;top:18px;right:24px;background:none;border:0;color:#fff;font-size:2.6rem;line-height:1;cursor:pointer}
+  /* CLICK THROUGH FORM */
+  .wiz{min-height:520px;display:flex;flex-direction:column}
+  .wiz-top{display:flex;align-items:center;gap:16px;margin-bottom:30px;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .wiz-bar{flex:1;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+  .wiz-bar i{display:block;height:100%;width:20%;background:var(--accent);transition:width .4s ease}
+  .wiz-step{display:none;flex:1}
+  .wiz-step.active{display:block;animation:wizIn .35s ease}
+  @keyframes wizIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+  .wiz-step h3{font-size:clamp(1.6rem,2.4vw,2rem);margin-bottom:24px}
+  .radios.big{grid-template-columns:1fr 1fr;gap:12px}
+  .radios.big span{padding:22px 16px;font-size:1rem;font-weight:500}
+  .radios.big label:hover span{border-color:rgba(58,130,208,.6)}
+  .wiz-err{color:#ff7a7a;font-size:.88rem;min-height:1.3em;margin-top:14px}
+  .wiz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+  .wiz-nav .btn{width:auto;margin-top:0;padding:16px 30px}
+  .wiz-back{background:none;border:0;color:var(--muted);font:inherit;font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;visibility:hidden}
+  .wiz-back:hover{color:#fff}
+  .wiz-done{text-align:center;padding-top:30px}
+  .wiz-done p{color:var(--muted);margin-top:10px}
+  .done-icon{width:72px;height:72px;border-radius:50%;margin:0 auto 24px;display:grid;place-items:center;background:rgba(58,130,208,.18);color:var(--accent-2)}
+  .done-icon svg{width:34px;height:34px}
+  .wiz.finished .wiz-top,.wiz.finished .wiz-nav,.wiz.finished .secure{display:none}
+  @media (max-width:560px){.radios.big{grid-template-columns:1fr}}
   /* REVEAL */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
@@ -650,39 +673,62 @@
         </div>
       </div>
 
-      <!-- Replace YOUR_FORM_ID with your Formspree (or similar) endpoint so submissions reach your inbox -->
-      <form class="reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="fstep"><span>1</span>Event Details</div>
-        <div class="radios">
-          <label><input type="radio" name="event_type" value="Corporate Event" required><span>Corporate Event</span></label>
-          <label><input type="radio" name="event_type" value="Gala / Fundraiser"><span>Gala / Fundraiser</span></label>
-          <label><input type="radio" name="event_type" value="Conference"><span>Conference</span></label>
-          <label><input type="radio" name="event_type" value="Other"><span>Other</span></label>
+      <!-- Replace YOUR_FORM_ID with your Formspree endpoint so submissions reach your inbox -->
+      <form class="reveal wiz" id="wiz" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="wiz-top"><span id="wiz-count">Step 1 of 5</span><div class="wiz-bar"><i id="wiz-fill"></i></div></div>
+
+        <div class="wiz-step active" data-auto>
+          <h3>What kind of event is it?</h3>
+          <div class="radios big">
+            <label><input type="radio" name="event_type" value="Corporate Event" required><span>Corporate Event</span></label>
+            <label><input type="radio" name="event_type" value="Gala / Fundraiser"><span>Gala / Fundraiser</span></label>
+            <label><input type="radio" name="event_type" value="Conference"><span>Conference</span></label>
+            <label><input type="radio" name="event_type" value="Other"><span>Something Else</span></label>
+          </div>
         </div>
-        <div class="row" style="margin-top:12px">
+
+        <div class="wiz-step">
+          <h3>When is it, and how many guests?</h3>
           <div class="field"><label for="date">Event Date</label><input type="date" id="date" name="event_date" required></div>
-          <div class="field"><label for="guests">Guest Count</label><input type="text" id="guests" name="guest_count" placeholder="e.g. 250" required></div>
+          <div class="field"><label for="guests">Guest Count</label><input type="text" id="guests" name="guest_count" inputmode="numeric" placeholder="e.g. 250" required></div>
         </div>
 
-        <div class="fstep"><span>2</span>Estimated Budget</div>
-        <div class="radios">
-          <label><input type="radio" name="budget" value="Under $5k" required><span>Under $5k</span></label>
-          <label><input type="radio" name="budget" value="$5k to $10k"><span>$5k to $10k</span></label>
-          <label><input type="radio" name="budget" value="$10k to $20k"><span>$10k to $20k</span></label>
-          <label><input type="radio" name="budget" value="$20k+"><span>$20k+</span></label>
+        <div class="wiz-step" data-auto>
+          <h3>What's your estimated budget?</h3>
+          <div class="radios big">
+            <label><input type="radio" name="budget" value="Under $5k" required><span>Under $5k</span></label>
+            <label><input type="radio" name="budget" value="$5k to $10k"><span>$5k to $10k</span></label>
+            <label><input type="radio" name="budget" value="$10k to $20k"><span>$10k to $20k</span></label>
+            <label><input type="radio" name="budget" value="$20k+"><span>$20k+</span></label>
+          </div>
         </div>
 
-        <div class="fstep"><span>3</span>Your Details</div>
-        <div class="field"><label for="name">Full Name</label><input type="text" id="name" name="name" required></div>
-        <div class="row">
-          <div class="field"><label for="email">Work Email</label><input type="email" id="email" name="email" required></div>
-          <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" required></div>
+        <div class="wiz-step">
+          <h3>Who should Matt call?</h3>
+          <div class="field"><label for="name">Full Name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="email">Work Email</label><input type="email" id="email" name="email" autocomplete="email" required></div>
+          <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" autocomplete="tel" required></div>
         </div>
-        <div class="field"><label for="zip">Event Postal / Zip Code</label><input type="text" id="zip" name="event_location" required></div>
-        <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" placeholder="Anything else you'd like Matt to know?"></textarea></div>
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-        <button type="submit" class="btn">Get My Custom Proposal</button>
-        <p class="secure">Your information is secure and never shared.</p>
+
+        <div class="wiz-step">
+          <h3>Last thing. Where's the event?</h3>
+          <div class="field"><label for="zip">Event Postal / Zip Code</label><input type="text" id="zip" name="event_location" required></div>
+          <div class="field"><label for="msg">Anything else Matt should know? <span style="opacity:.6">(optional)</span></label><textarea id="msg" name="message" placeholder="Theme, venue, goals for the night..."></textarea></div>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="wiz-step wiz-done">
+          <div class="done-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></div>
+          <h3>You're in. Matt will call you within 24 hours.</h3>
+          <p>Keep an eye on your phone and inbox for your custom proposal.</p>
+        </div>
+
+        <p class="wiz-err" id="wiz-err" role="alert"></p>
+        <div class="wiz-nav">
+          <button type="button" class="wiz-back" id="wiz-back">Back</button>
+          <button type="button" class="btn" id="wiz-next">Next <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.9 7h8.2M7 2.9 11.1 7 7 11.1"/></svg></button>
+        </div>
+        <p class="secure">Takes 30 seconds. Your information is secure and never shared.</p>
       </form>
     </div>
   </div>
@@ -809,6 +855,61 @@
   const drop = document.getElementById('drop');
   drop.querySelector('button').addEventListener('click', ev => { ev.stopPropagation(); drop.classList.toggle('open'); });
   document.addEventListener('click', () => drop.classList.remove('open'));
+
+  // Click through booking form
+  (() => {
+    const form = document.getElementById('wiz'); if (!form) return;
+    const steps = [...form.querySelectorAll('.wiz-step:not(.wiz-done)')];
+    const done = form.querySelector('.wiz-done');
+    const next = document.getElementById('wiz-next'), back = document.getElementById('wiz-back');
+    const err = document.getElementById('wiz-err'), fill = document.getElementById('wiz-fill'), count = document.getElementById('wiz-count');
+    const arrow = next.innerHTML.slice(next.innerHTML.indexOf('<svg'));
+    let i = 0;
+    const show = n => {
+      steps.forEach((s, k) => s.classList.toggle('active', k === n));
+      i = n; err.textContent = '';
+      fill.style.width = ((n + 1) / steps.length * 100) + '%';
+      count.textContent = 'Step ' + (n + 1) + ' of ' + steps.length;
+      back.style.visibility = n ? 'visible' : 'hidden';
+      next.innerHTML = (n === steps.length - 1 ? 'Get My Custom Proposal ' : 'Next ') + arrow;
+      const first = steps[n].querySelector('input:not([type=radio]):not([name=_gotcha]),textarea');
+      if (first && window.innerWidth > 900) setTimeout(() => first.focus({preventScroll:true}), 50);
+    };
+    const valid = () => {
+      for (const el of steps[i].querySelectorAll('[required]')) {
+        if (el.type === 'radio') {
+          if (!form.querySelector('input[name="' + el.name + '"]:checked')) { err.textContent = 'Pick one to keep going.'; return false; }
+        } else if (!el.checkValidity() || !el.value.trim()) {
+          err.textContent = el.type === 'email' ? 'Please enter a valid email.' : 'Please fill in ' + (el.labels[0] ? el.labels[0].textContent.toLowerCase() : 'this field') + '.';
+          el.focus(); return false;
+        }
+      }
+      return true;
+    };
+    const submit = async () => {
+      next.disabled = true; next.textContent = 'Sending...';
+      try {
+        const r = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{Accept:'application/json'}});
+        if (!r.ok) throw 0;
+        steps.forEach(s => s.classList.remove('active'));
+        done.classList.add('active'); form.classList.add('finished');
+      } catch (e) {
+        err.textContent = 'Something went wrong. Email mj@magicmatt.com or call 647.370.7140 and Matt will take care of you.';
+        next.disabled = false; show(i);
+        err.textContent = 'Something went wrong. Email mj@magicmatt.com or call 647.370.7140 and Matt will take care of you.';
+      }
+    };
+    next.addEventListener('click', () => { if (!valid()) return; i < steps.length - 1 ? show(i + 1) : submit(); });
+    back.addEventListener('click', () => show(Math.max(0, i - 1)));
+    form.addEventListener('change', ev => {
+      if (ev.target.type === 'radio' && steps[i].hasAttribute('data-auto')) setTimeout(() => show(i + 1), 250);
+    });
+    form.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' && ev.target.tagName !== 'TEXTAREA') { ev.preventDefault(); next.click(); }
+    });
+    form.addEventListener('submit', ev => ev.preventDefault());
+    show(0);
+  })();
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>

@@ -93,9 +93,9 @@
 
   /* HERO */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;overflow:hidden}
-  .hero-video{position:absolute;inset:0;z-index:0;pointer-events:none}
-  .hero-video iframe{position:absolute;top:50%;left:50%;width:177.78vh;height:56.25vw;min-width:100%;min-height:100%;transform:translate(-50%,-50%);border:0}
-  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(7,9,13,.95) 0%,rgba(7,9,13,.75) 45%,rgba(7,9,13,.35) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%)}
+  .hero-video{position:absolute;top:0;bottom:0;right:0;left:38%;z-index:0;pointer-events:none;overflow:hidden}
+  .hero-video iframe{position:absolute;top:50%;left:50%;width:max(100%,177.78vh);height:max(100%,56.25vw);aspect-ratio:16/9;transform:translate(-50%,-50%);border:0}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 38%,rgba(4,6,15,.88) 48%,rgba(4,6,15,.45) 66%,rgba(4,6,15,.25) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 18%)}
   .hero .wrap{position:relative;z-index:2}
   .hero-copy{max-width:1160px}
   .hero .lead{margin:28px 0 44px;color:#fff;font-size:clamp(1.1rem,1.6vw,1.4rem);max-width:760px}
@@ -110,11 +110,11 @@
   .proof b{font-family:var(--display);font-weight:500;font-size:1.6rem;display:block;line-height:1.2}
 
   /* LOGOS */
-  .logos{padding:60px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .logos{padding:56px 0 64px;background:#fff}
   .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);margin-top:28px}
-  .track{display:flex;gap:70px;width:max-content;animation:scroll 40s linear infinite;align-items:center}
-  .track img{height:46px;width:auto;object-fit:contain;filter:grayscale(1) brightness(1.8);opacity:.7;transition:.3s}
-  .track img:hover{filter:none;opacity:1}
+  .track{display:flex;gap:90px;width:max-content;animation:scroll 40s linear infinite;align-items:center}
+  .track img{height:64px;width:auto;max-width:190px;object-fit:contain;transition:transform .3s}
+  .track img:hover{transform:scale(1.06)}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
   /* STATS */
@@ -254,6 +254,8 @@
   /* RESPONSIVE */
   @media (max-width:991px){
     section{padding:80px 0}
+    .hero-video{left:0}
+    .hero::after{background:linear-gradient(90deg,rgba(4,6,15,.92) 0%,rgba(4,6,15,.8) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 25%)}
     .nav ul{position:fixed;top:78px;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,9,13,.97);padding:10px 24px 24px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .35s;z-index:-1}
     .nav ul.open{transform:none}
     .nav ul li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -301,7 +303,7 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="hero-video">
-    <iframe src="https://player.vimeo.com/video/1013856598?background=1&autoplay=1&loop=1&muted=1" allow="autoplay; fullscreen" title="Matt James showreel" tabindex="-1"></iframe>
+    <iframe src="https://player.vimeo.com/video/1013856598?background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&dnt=1" allow="autoplay; fullscreen" title="Matt James showreel" tabindex="-1"></iframe>
   </div>
   <div class="wrap">
     <div class="hero-copy">
@@ -340,6 +342,7 @@
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5c8_27.webp" alt="NBA">
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7ca8bd6ed1685ed4c6446_Dove_logo.webp" alt="Dove">
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c59b_13.webp" alt="Paramount+">
+      <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6ab42c03b94b9374acaba701_fifa-optimized.webp" alt="FIFA" onerror="this.remove()">
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5c6_21.webp" alt="Universal">
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c5c2_22.webp" alt="Epic Games">
       <img src="https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c59f_14.webp" alt="Marriott">

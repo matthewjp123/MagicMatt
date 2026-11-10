@@ -46,7 +46,7 @@
     --glow:rgba(58,130,208,.3);
     --gold:#fcc800;
     --radius:18px;
-    --max:1200px;
+    --max:1520px;
     --display:"Newsreader", Georgia, serif;
     --body:"Inter", system-ui, sans-serif;
   }
@@ -55,7 +55,7 @@
   body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
-  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 clamp(18px,3.5vw,56px)}
   section{padding:110px 0}
   h1,h2,h3{font-family:var(--display);line-height:1.08;letter-spacing:-.015em;font-weight:500}
   h1{font-size:clamp(2.5rem,4.3vw,4.3rem);font-weight:500}
@@ -81,8 +81,7 @@
   /* NAV */
   .nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
   .nav.scrolled{background:rgba(7,9,13,.85);backdrop-filter:blur(14px);border-color:var(--line)}
-  .nav .wrap,.hero-main .wrap{max-width:none;padding-left:clamp(20px,4.5vw,72px);padding-right:clamp(20px,4.5vw,72px)}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px}
+    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px}
   .logo{display:block}
   .logo img{height:38px;width:auto}
   footer .logo img{height:44px}
@@ -95,9 +94,10 @@
   /* HERO */
   .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;padding:0}
   .hero-main{position:relative;flex:1;display:flex;align-items:center;padding:100px 0 40px}
-  .hero-video{position:absolute;top:0;bottom:0;right:0;left:48%;z-index:0;pointer-events:none;overflow:hidden}
-  .hero-video iframe{position:absolute;top:50%;left:50%;width:max(100%,177.78vh);height:max(100%,56.25vw);aspect-ratio:16/9;transform:translate(-50%,-50%);border:0}
-  .hero-main::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 48%,rgba(4,6,15,.85) 60%,rgba(4,6,15,.45) 76%,rgba(4,6,15,.3) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 18%)}
+  .hero-video{position:absolute;top:0;bottom:0;right:0;left:50%;z-index:0;pointer-events:none;overflow:hidden}
+  .hero-video iframe{position:absolute;top:50%;left:0;width:100%;height:auto;aspect-ratio:16/9;max-height:100%;transform:translateY(-50%);border:0}
+  .hero-video{-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%)}
+  .hero-main::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 50%,rgba(4,6,15,.75) 58%,rgba(4,6,15,.3) 72%,rgba(4,6,15,.3) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 18%)}
   .hero-main .wrap{position:relative;z-index:2}
   .hero-copy{max-width:min(740px,58%)}
   .hero .btns{flex-wrap:nowrap}
@@ -260,9 +260,9 @@
   .car-btn:hover{border-color:var(--accent);background:rgba(58,130,208,.15)}
   .car-btn svg{width:16px;height:16px}
   .carousel{overflow:hidden}
-  .car-track{display:flex;gap:22px;overflow-x:auto;--edge:max(20px,calc((100vw - var(--max))/2 + 24px));scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px var(--edge) 10px;scroll-padding-inline:var(--edge);scrollbar-width:none}
+  .car-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 10px;scrollbar-width:none}
   .car-track::-webkit-scrollbar{display:none}
-  .car-track>*{scroll-snap-align:start;flex:0 0 auto}
+  .car-track>*{scroll-snap-align:center;flex:0 0 auto}
   .car-track .quote{width:min(380px,82vw)}
   .car-track .tv-card{width:min(460px,86vw)}
   .gal img{width:min(460px,82vw);aspect-ratio:16/9;object-fit:cover;border-radius:14px}
@@ -273,7 +273,10 @@
   .lite:hover .play,.tk:hover .play{background:rgba(4,6,15,.05)}
   .convos,.photos{background:var(--bg-2)}
   /* WATCH */
-  .watch .glow{max-width:960px;margin:40px auto 40px;border-radius:20px;padding:3px;background:linear-gradient(135deg,var(--accent),#6a5cff,var(--accent));box-shadow:0 0 70px var(--glow)}
+  .watch{padding:24px 0 40px}
+  #testimonials{padding-bottom:40px}
+  .watch + section{padding-top:40px}
+  .watch .glow{max-width:960px;margin:28px auto 30px;border-radius:20px;padding:3px;background:linear-gradient(135deg,var(--accent),#6a5cff,var(--accent));box-shadow:0 0 70px var(--glow)}
   .watch .glow .video{border-radius:17px;overflow:hidden}
   /* SOCIAL */
   .tk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
@@ -309,6 +312,11 @@
     .sec-head .car-nav{display:none}
   }
 
+  .modal{position:fixed;inset:0;z-index:100;background:rgba(2,3,8,.92);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal.open{display:flex}
+  .modal-box{width:min(1100px,100%)}
+  .modal-box .video{border-radius:14px;overflow:hidden}
+  .modal-x{position:absolute;top:18px;right:24px;background:none;border:0;color:#fff;font-size:2.6rem;line-height:1;cursor:pointer}
   /* REVEAL */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
@@ -318,6 +326,7 @@
   @media (max-width:991px){
     section{padding:80px 0}
     .hero-video{left:0}
+    .hero-video iframe{left:50%;width:max(100%,177.78vh);height:max(100%,56.25vw);max-height:none;transform:translate(-50%,-50%)}
     .hero-copy{max-width:640px}
     .hero .btns{flex-wrap:wrap}
     .hero-main::after{background:linear-gradient(90deg,rgba(4,6,15,.92) 0%,rgba(4,6,15,.8) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 25%)}
@@ -362,7 +371,7 @@
         <div class="drop-menu">
           <a href="https://drive.google.com/file/d/192aNgVe_4iMuqeb3t5CS0CDjmti_3lo0/view?usp=sharing" target="_blank" rel="noopener">Intro Script</a>
           <a href="https://drive.google.com/file/d/1CK22oaNb6Mrw5KWhhK0nclMEknNMuvIP/view?usp=sharing" target="_blank" rel="noopener">Media Kit</a>
-          <a href="https://vimeo.com/1013856598" target="_blank" rel="noopener">Intro Video</a>
+          <a href="#" data-reel="1013856598">Intro Video</a>
           <a href="https://drive.google.com/file/d/1upB2izm6p9gA-tXlt890Vn1xSgJhbVta/view?usp=sharing" target="_blank" rel="noopener">Tech Rider</a>
         </div>
       </li>
@@ -378,7 +387,7 @@
 <header class="hero" id="top">
   <div class="hero-main">
   <div class="hero-video">
-    <iframe src="https://player.vimeo.com/video/1013856598?background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&dnt=1" allow="autoplay; fullscreen" title="Matt James showreel" tabindex="-1"></iframe>
+    <iframe src="https://player.vimeo.com/video/1013856598?background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&dnt=1&quality=1080p" allow="autoplay; fullscreen" title="Matt James showreel" tabindex="-1"></iframe>
   </div>
   <div class="wrap">
     <div class="hero-copy">
@@ -389,7 +398,7 @@
         <a href="#contact" class="btn">Make My Event Unforgettable
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.9 7h8.2M7 2.9 11.1 7 7 11.1"/></svg>
         </a>
-        <a href="https://vimeo.com/1013856598" target="_blank" rel="noopener" class="btn ghost">Watch Showreel
+        <a href="#" data-reel="1013856598" class="btn ghost">Watch Showreel
           <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 15l8-5-8-5v10z"/></svg>
         </a>
       </div>
@@ -455,10 +464,10 @@
   </div>
 </section>
 
-<!-- CLIENT CONVOS: paste each client's Vimeo ID into data-vimeo="" -->
+<!-- CLIENT CONVOS -->
 <section class="convos" id="convos">
   <div class="wrap"><div class="sec-head reveal"><div><div class="tag">Real Clients. Real Conversations</div><h2>Hear It From <em>the Planners.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div></div>
-  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><span class="pill">Marriott Hotels</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">The Home Depot</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Guild Electric, Engineering</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Education Sector</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Google, Tech Sector</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Goldhar, Accounting Firm</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Senior Living</span></div><div class="video lite" data-vimeo=""><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div></div></div>
+  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><span class="pill">Marriott Hotels</span></div><div class="video lite" data-vimeo="1197941473" style="background-image:url('https://vumbnail.com/1197941473.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">The Home Depot</span></div><div class="video lite" data-vimeo="1197948933" style="background-image:url('https://vumbnail.com/1197948933.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Guild Electric, Engineering</span></div><div class="video lite" data-vimeo="1220271412" style="background-image:url('https://vumbnail.com/1220271412.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Education Sector</span></div><div class="video lite" data-vimeo="1197939774" style="background-image:url('https://vumbnail.com/1197939774.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Google, Tech Sector</span></div><div class="video lite" data-vimeo="1197942825" style="background-image:url('https://vumbnail.com/1197942825.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Goldhar, Accounting Firm</span></div><div class="video lite" data-vimeo="1197945496" style="background-image:url('https://vumbnail.com/1197945496.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div><div class="tv-card"><div class="tv-head"><span class="pill">Senior Living</span></div><div class="video lite" data-vimeo="1197942243" style="background-image:url('https://vumbnail.com/1197942243.jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div></div></div></div>
 </section>
 
 <!-- SERVICES -->
@@ -592,7 +601,7 @@
 <!-- AS SEEN ON -->
 <section class="tv" id="tv">
   <div class="wrap"><div class="sec-head reveal"><div><div class="tag">As Seen On</div><h2>National TV. <em>Real Reactions.</em></h2></div><div class="car-nav"><button class="car-btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 8.75 9 14.47l-1.06 1.06L.44 8 7.97.47 9.03 1.53 3.31 7.25H15.5v1.5z"/></svg></button><button class="car-btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.69 7.25 6.97 1.53 8.03.47 15.56 8l-7.53 7.53-1.06-1.06 5.72-5.72H.5v-1.5z"/></svg></button></div></div></div>
-  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><b>NBC tv</b><span class="pill">ACCESS Hollywood</span></div><div class="video lite" data-vimeo="1045169376" style="background-image:url('https://i.vimeocdn.com/video/1979434681-7a44c6f0fd00ba34a74b4a8c9d1187e5d4cc42aa16e9cc440e5c7df70c3c08a1-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt stopped the show on live television.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CP24 tv</b><span class="pill">CP24 NEWS</span></div><div class="video lite" data-vimeo="1065225618" style="background-image:url('https://i.vimeocdn.com/video/1992691374-4af7269c5f28f018a1cf7aca1b653dabd51af6d87c6de5e9bc0f16d8dc5b0b2e-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Canada&#x27;s most followed magician goes viral.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>BREAKFAST tv</b><span class="pill">TORONTO</span></div><div class="video lite" data-vimeo="1013923187" style="background-image:url('https://i.vimeocdn.com/video/1990306672-e3c2e1420676844de5e972f26a0a377e1678b8446a6cb06818be7f42078c839f-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;The whole studio couldn&#x27;t believe what they just saw.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CITY TV</b><span class="pill">FEATURE</span></div><div class="video lite" data-vimeo="1063227987" style="background-image:url('https://i.vimeocdn.com/video/1990304207-a4f35c43e0a4fe8a0d991ed9a266f2fb0cbc47e8f8c9dda9ff9c0062af741cf9-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;They came to cover a story. Matt became the story!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CTV TGS</b><span class="pill">National TV</span></div><div class="video lite" data-vimeo="1190315451" style="background-image:url('https://i.vimeocdn.com/video/2155064616-76c36fa1c6cf0981138f76f60d7c4c78b6956fed15403356cf99cf0b2958f804-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt, you&#x27;re a literal wizard, OH MY GOSH!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>Your Morning National</b><span class="pill">CTV</span></div><div class="video lite" data-vimeo="1197179197" style="background-image:url('https://i.vimeocdn.com/video/2163454874-fa05d78e9b4aed7ef6bba7fb06ff7748cb8eb9c2412b730a52cf583df125d825-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He has amazed audiences all across the country!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>National TV</b><span class="pill">CTV Feature</span></div><div class="video lite" data-vimeo="1190315945" style="background-image:url('https://i.vimeocdn.com/video/2155093532-8c4c8751feee7a3706f6e710c0a56f91f7bff804dc459af1d6c8db59379feb32-d_1280?region=us')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He was so incredible, we brought him back AGAIN!&quot;</p></div></div></div>
+  <div class="carousel"><div class="car-track"><div class="tv-card"><div class="tv-head"><b>NBC tv</b><span class="pill">ACCESS Hollywood</span></div><div class="video lite" data-vimeo="1045169376" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c573_nbc-thumnail.avif')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt stopped the show on live television.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CP24 tv</b><span class="pill">CP24 NEWS</span></div><div class="video lite" data-vimeo="1065225618" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c574_cp24-thumbail.avif')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Canada&#x27;s most followed magician goes viral.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>BREAKFAST tv</b><span class="pill">TORONTO</span></div><div class="video lite" data-vimeo="1013923187" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c575_toronto-breakfast-thumbnail.avif')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;The whole studio couldn&#x27;t believe what they just saw.&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CITY TV</b><span class="pill">FEATURE</span></div><div class="video lite" data-vimeo="1063227987" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69f7c7871e3f55aca093c576_citynews-thumbnail.avif')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;They came to cover a story. Matt became the story!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>CTV TGS</b><span class="pill">National TV</span></div><div class="video lite" data-vimeo="1190315451" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69fd4c334cfa5c5e15ebd2a6_Screenshot%202026-05-07%20at%2010.22.34%E2%80%AFPM%20(1).jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;Matt, you&#x27;re a literal wizard, OH MY GOSH!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>Your Morning National</b><span class="pill">CTV</span></div><div class="video lite" data-vimeo="1197179197" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/6a1c977cb3db0157964afc8f_Screenshot%202026-05-31%20at%204.16.37%E2%80%AFPM.webp')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He has amazed audiences all across the country!&quot;</p></div><div class="tv-card"><div class="tv-head"><b>National TV</b><span class="pill">CTV Feature</span></div><div class="video lite" data-vimeo="1190315945" style="background-image:url('https://cdn.prod.website-files.com/69f7c7871e3f55aca093c50f/69fd4bfecc335f46dab0f267_Screenshot%202026-05-07%20at%2010.32.43%E2%80%AFPM%20(1).jpg')"><span class="play"><svg viewBox="0 0 64 64" fill="currentColor"><path fill-rule="evenodd" d="M5.3 32a26.7 26.7 0 1 1 53.4 0 26.7 26.7 0 0 1-53.4 0zm21.8 11.4 15.5-9.7a2 2 0 0 0 0-3.4L27.1 20.6A2 2 0 0 0 24 22.3v19.4a2 2 0 0 0 3.1 1.7z"/></svg></span></div><p>&quot;He was so incredible, we brought him back AGAIN!&quot;</p></div></div></div>
 </section>
 
 <!-- STAT BAR -->
@@ -708,6 +717,8 @@
   </div>
 </footer>
 
+<div class="modal" id="modal" aria-hidden="true"><button class="modal-x" aria-label="Close">&times;</button><div class="modal-box"><div class="video" id="modal-video"></div></div></div>
+
 <script>
   // Nav background on scroll
   const nav = document.getElementById('nav');
@@ -752,19 +763,48 @@
   document.querySelectorAll('[data-count]').forEach(el => counter.observe(el));
 
 
-  // Carousels
-  document.querySelectorAll('section').forEach(sec => {
-    const track = sec.querySelector('.car-track'); if (!track) return;
+  // Carousels: centred and looping both ways
+  document.querySelectorAll('.car-track').forEach(track => {
+    const items = [...track.children];
+    const before = items.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden','true'); return c; });
+    const after  = items.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden','true'); return c; });
+    track.prepend(...before); track.append(...after);
+    const setW = () => after[0].offsetLeft - items[0].offsetLeft;
+    const centre = el => el.offsetLeft - (track.clientWidth - el.offsetWidth) / 2;
+    const jump = x => { track.style.scrollSnapType = 'none'; track.scrollLeft = x; requestAnimationFrame(() => track.style.scrollSnapType = ''); };
+    const init = () => jump(centre(items[0]));
+    init(); window.addEventListener('load', init); window.addEventListener('resize', init);
+    let t;
+    track.addEventListener('scroll', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const w = setW(), base = centre(items[0]);
+        if (track.scrollLeft < base - w / 2) jump(track.scrollLeft + w);
+        else if (track.scrollLeft > base + w / 2) jump(track.scrollLeft - w);
+      }, 140);
+    }, {passive:true});
+    const sec = track.closest('section');
     sec.querySelectorAll('.car-btn').forEach(b => b.addEventListener('click', () => {
-      const card = track.firstElementChild; const step = card ? card.getBoundingClientRect().width + 22 : 400;
-      track.scrollBy({left: step * +b.dataset.dir * (window.innerWidth > 900 ? 2 : 1)});
+      const step = items[0].getBoundingClientRect().width + 22;
+      track.scrollBy({left: step * +b.dataset.dir, behavior: 'smooth'});
     }));
   });
-  // Click to load videos
-  document.querySelectorAll('.lite').forEach(el => el.addEventListener('click', () => {
-    const id = el.dataset.vimeo; if (!id) return;
-    el.innerHTML = '<iframe src="https://player.vimeo.com/video/' + id + '?autoplay=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-  }, {once:false}));
+  // Click to load videos (works on looped copies too)
+  document.addEventListener('click', ev => {
+    const el = ev.target.closest('.lite'); if (!el || !el.dataset.vimeo) return;
+    el.innerHTML = '<iframe src="https://player.vimeo.com/video/' + el.dataset.vimeo + '?autoplay=1&dnt=1&quality=1080p" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+  });
+  // On page video player
+  const modal = document.getElementById('modal'), mv = document.getElementById('modal-video');
+  document.addEventListener('click', ev => {
+    const a = ev.target.closest('[data-reel]'); if (!a) return;
+    ev.preventDefault();
+    mv.innerHTML = '<iframe src="https://player.vimeo.com/video/' + a.dataset.reel + '?autoplay=1&dnt=1&quality=1080p" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    modal.classList.add('open');
+  });
+  const closeModal = () => { modal.classList.remove('open'); mv.innerHTML = ''; };
+  modal.addEventListener('click', ev => { if (ev.target === modal || ev.target.classList.contains('modal-x')) closeModal(); });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal(); });
   // Downloads dropdown
   const drop = document.getElementById('drop');
   drop.querySelector('button').addEventListener('click', ev => { ev.stopPropagation(); drop.classList.toggle('open'); });
